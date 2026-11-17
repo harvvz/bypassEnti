@@ -30,14 +30,8 @@ jobs:
           echo "Checking .theos folder:"
           ls -R .theos/ || true
 
-      - name: Upload Build Artifacts
+      - name: Salvar artefato gerado
         uses: actions/upload-artifact@v4
         with:
-          name: packaged-output
-          path: |
-            .theos/_/*.dylib
-            packages/*.deb
-            obj/**/*.dylib
-            *.dylib
-          include-hidden-files: true
-          if-no-files-found: error
+         name: ios-dylib
+         path: bypassEnti.dylib
