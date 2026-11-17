@@ -30,6 +30,15 @@ jobs:
           echo "Checking .theos folder:"
           ls -R .theos/ || true
 
+      - name: Compilar bypassEnti.m para bypassEnti.dylib
+        run: |
+           xcrun --sdk iphoneos clang -dynamiclib \
+           -arch arm64 \
+           -isysroot $(xcrun --sdk iphoneos --show-sdk-path) \
+           -framework Foundation \
+           bypassEnti.m \
+           -o bypassEnti.dylib
+
       - name: Salvar artefato gerado
         uses: actions/upload-artifact@v4
         with:
