@@ -1,0 +1,8 @@
+package: com.harvvz.bypassenti
+name: BypassEnti
+author: harvvz
+version: 1.0.0
+architecture: iphoneos-arm
+description: Uma dylib para bypass feita em Objective-C.
+maintainer: harvvz
+depends: mobilesubstrate
