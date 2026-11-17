@@ -27,9 +27,9 @@ jobs:
       - name: Salvar Artefato (.dylib / .deb)
         uses: actions/upload-artifact@v4
         with:
-            name: bypassEnti-binarios
-            path: |
-          **/*.dylib
-          **/*.deb
-          .theos/_/*.dylib
+          name: bypassEnti-binarios
+          path: |
+            **/*.dylib
+            **/*.deb
+            .theos/_/*.dylib
             packages/*.deb
