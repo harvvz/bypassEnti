@@ -1,0 +1,33 @@
+name: Compile iOS dylib
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Código
+        uses: actions/checkout@v4
+
+      - name: Instalar Dependências (ldid, xz)
+        run: brew install ldid xz
+
+      - name: Configurar Theos
+        uses: Randomblock1/theos-action@v1
+
+      - name: Compilar Projeto
+        run: |
+          cd bypassEnti
+          make FINALPACKAGE=1
+
+      - name: Salvar Artefato (.dylib / .deb)
+        uses: actions/upload-artifact@v4
+        with:
+          name: bypassEnti-binarios
+          path: |
+            bypassEnti/.theos/_/*.dylib
+            bypassEnti/packages/*.deb
