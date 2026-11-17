@@ -17,7 +17,7 @@ jobs:
         run: brew install ldid xz
 
       - name: Configurar Theos
-        uses: Randomblock1/theos-action@v4
+        uses: Randomblock1/theos-action@v1
 
       - name: Compilar Projeto
         run: |
