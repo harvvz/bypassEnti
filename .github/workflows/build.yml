@@ -6,28 +6,38 @@ on:
   workflow_dispatch:
 
 jobs:
-    build:
-      runs-on: macos-latest
+  build:
+    runs-on: macos-latest
 
-      steps:
-        - name: Checkout Código
-          uses: actions/checkout@v4
+    steps:
+      - name: Checkout Código
+        uses: actions/checkout@v4
 
-        - name: Instalar Dependências (ldid, xz)
-          run: brew install ldid xz
+      - name: Instalar Dependências (ldid, xz)
+        run: brew install ldid xz
 
-        - name: Configurar Theos
-          uses: Randomblock1/theos-action@v1
+      - name: Configurar Theos
+        uses: Randomblock1/theos-action@v1
 
-        - name: Compilar Projeto com Logs Detalhados
-          run: |
-            make V=1 FINALPACKAGE=1
+      - name: Compilar Projeto com Logs Detalhados
+        run: |
+          make V=1 FINALPACKAGE=1
 
-        - name: Salvar Artefato (.dylib)
-          uses: actions/upload-artifact@v4
-          with:
-            name: bypassEnti-binarios
-            path: |
-              .theos/_/*.dylib
-              packages/*.deb
-              *.dylib
+      - name: Inspect build output files
+        run: |
+          echo "Checking packages folder:"
+          ls -R packages/ || true
+          echo "Checking .theos folder:"
+          ls -R .theos/ || true
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packaged-output
+          path: |
+            .theos/_/*.dylib
+            packages/*.deb
+            obj/**/*.dylib
+            *.dylib
+          include-hidden-files: true
+          if-no-files-found: error
